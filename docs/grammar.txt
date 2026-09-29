@@ -1,0 +1,55 @@
+LETTER = "A" | ... | "Z" | "a" | ... | "z";
+
+DIGIT = "0" | ... | "9";
+
+SYMBOL = "," | "." | ";" | "(" | ")" | "[" | "]" | "{" | "}" | "_";
+
+IDENTIFIER = LETTER {LETTER | DIGIT | "_"};
+
+NUMBER = DIGIT {DIGIT};
+
+CHARACTER = LETTER | DIGIT | SYMBOL | " ";
+
+STRING = "'" {CHARACTER} "'";
+
+ARITHMETIC_OPERATION = "+" | "-" | "*" | "/" | "%";
+
+ASSIGNMENT_OPERATION = "=" | "+=" | "-=" | "*=" | "/=" | "%=";
+
+INCREMENT_DECREMENT_OPERATION = "++" | "--";
+
+COMPARE_OPERATION = "<" | ">" | "<=" | ">=" | "==" | "!=";
+
+LOGICAL_OPERATION = "&&" | "||";
+
+BITWISE_OPERATION = "&" | "|" | "^" | "~";
+
+SHIFT_OPERATION = "<<" | ">>";
+
+FACTOR = IDENTIFIER | NUMBER | "(" EXPRESSION ")";
+
+TERM = FACTOR {("*" | "/" | "%") FACTOR};
+
+EXPRESSION = TERM {("+" | "-") TERM};
+
+CONDITION = EXPRESSION COMPARE_OPERATION EXPRESSION {LOGICAL_OPERATION EXPRESSION COMPARE_OPERATION EXPRESSION};
+
+DECLARATION = "int" IDENTIFIER {"," IDENTIFIER ["=" EXPRESSION]} ";";
+
+SIMPLE_ASSIGNMENT = IDENTIFIER ASSIGNMENT_OPERATION EXPRESSION;
+
+ASSIGNMENT = SIMPLE_ASSIGNMENT ";";
+
+IF_STATEMENT = "if" "(" CONDITION ")" "{" {STATEMENT} "}" { "else" "if" "(" CONDITION ")" "{" { STATEMENT } "}" } [ "else" "{" {STATEMENT} "}"];
+
+WHILE_STATEMENT = "while" "(" CONDITION ")" "{" {STATEMENT} "}";
+
+FOR_STATEMENT = "for" "(" [SIMPLE_ASSIGNMENT] ";" [CONDITION] ";" [SIMPLE_ASSIGNMENT] ")" "{" {STATEMENT} "}";
+
+PRINT_STATEMENT = "print" "(" (STRING | IDENTIFIER | EXPRESSION) ")" ";";
+
+READ_STATEMENT = "read" "(" IDENTIFIER {"," IDENTIFIER} ")" ";";
+
+STATEMENT = DECLARATION | ASSIGNMENT | IF_STATEMENT | WHILE_STATEMENT | FOR_STATEMENT | PRINT_STATEMENT | READ_STATEMENT;
+
+PROGRAM = {STATEMENT};

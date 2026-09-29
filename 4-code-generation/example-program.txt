@@ -1,0 +1,9 @@
+int x;
+x = 5;
+
+int y;
+y = 10;
+
+prints ("Hello world!");
+print(x);
+print(y);
